@@ -58,7 +58,7 @@ ifeq ($(apikey),)
 	@echo "  make download apikey=\"<add your quandl key here>\""
 else 
 	@echo "using apikey=${apikey} to download datafile"
-	@wget -O - "https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=${apikey}&date.gt=2018-01-01" | python -c "import sys, json; print json.load(sys.stdin)['datatable_bulk_download']['file']['link']" > link.file
+	@wget -O - "https://www.quandl.com/api/v3/datatables/WIKI/PRICES?qopts.export=true&api_key=${apikey}&date.gt=2018-01-01" | python3 -c "import sys, json; print(json.load(sys.stdin)['datatable_bulk_download']['file']['link'])" > link.file
 	@wget -i link.file -O WIKI_PRICES_2018-01-01.zip
 	@unzip WIKI_PRICES_2018-01-01.zip
 	@mv WIKI_PRICES*.csv data/WIKI_PRICES_2018-01-01.csv
